@@ -408,7 +408,7 @@ def delete_post(post_id):
 
 @app.route('/portfolio')
 def portfolio():
-    conn = sqlite3.connect('app_dir/user.db')
+    conn = sqlite3.connect('user.db')
     cursor = conn.cursor()
     cursor.execute("SELECT id, title, description, image FROM portfolio")
     items = cursor.fetchall()
@@ -419,5 +419,6 @@ def portfolio():
 @app.route('/sovet/')
 def sovet():
  return render_template('Sovet.html')
-app.run()
+       if __name__ == '__main__':
+    app.run()
 
