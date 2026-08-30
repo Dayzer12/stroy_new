@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from email.header import Header
 app = Flask(__name__)
 app.secret_key = 'secret_key'
-conn = sqlite3.connect('/home/stroypomosh2026/stroy_site/user.db', check_same_thread=False)
+conn = sqlite3.connect('users.db', check_same_thread=False)
 cur = conn.cursor()
 cur.execute('''
 CREATE TABLE IF NOT EXISTS user(
