@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Советы по строительству — СтройПомощь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 0, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ff6b00;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1240px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 30px;
+            color: #ff6b00;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            color: #9ca3af;
+            font-size: 16px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* CATEGORIES TABS */
+        .tabs-wrapper {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 35px;
+            scrollbar-width: none;
+        }
+
+        .tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: rgba(19, 26, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 24px;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn:hover {
+            border-color: rgba(255, 107, 0, 0.4);
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border-color: transparent;
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+        }
+
+        /* LAYOUT GRID */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* ADVICE CARD */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .advice-card {
+            background: rgba(19, 26, 43, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 36px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .advice-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .advice-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .advice-title h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .advice-title span {
+            font-size: 13px;
+            color: #ff6b00;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* LIST OF TIPS */
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 18px 22px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-item:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateX(4px);
+        }
+
+        .tip-number {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 107, 0, 0.15);
+            color: #ff6b00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tip-text {
+            color: #e5e7eb;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* SIDEBAR CONSULTATION CARD */
+        .sidebar-card {
+            background: linear-gradient(145deg, rgba(19, 26, 43, 0.8) 0%, rgba(11, 15, 25, 0.9) 100%);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .sidebar-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-card p {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .btn-cta {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   <!-- HEADER -->
+    <header class="header">
+        <a href="{{ url_for('main') }}" class="logo-box">
+            <div class="logo-icon">СП</div>
+            <span class="logo-title">СтройПомощь</span>
+        </a>
+        <nav class="nav-links">
+            <a href="{{ url_for('main') }}" class="nav-link">Главная</a>
+            <a href="{{ url_for('Uslugi') }}" class="nav-link">Услуги</a>
+            <a href="{{ url_for('Contacts') }}" class="nav-link">Контакты</a>
+            <a href="#" class="nav-link active">Советы</a>
+            <a href="{{ url_for('o_nas') }}" class="nav-link">О нас</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <div class="page-header">
+            <span class="page-badge">База знаний</span>
+            <h1 class="page-title">Советы по строительству</h1>
+            <p class="page-subtitle">Практические рекомендации от наших ведущих инженеров, которые помогут избежать ошибок и сэкономить бюджет.</p>
+        </div>
+
+        <!-- TABS BUTTONS -->
+        <div class="tabs-wrapper">
+            <button class="tab-btn active" onclick="openTab(event, 'roof')">🏠 Кровля и крыша</button>
+            <button class="tab-btn" onclick="openTab(event, 'foundation')">🏗️ Фундамент</button>
+            <button class="tab-btn" onclick="openTab(event, 'walls')">🧱 Возведение стен</button>
+            <button class="tab-btn" onclick="openTab(event, 'insulation')">❄️ Отделка и утепление</button>
+            <button class="tab-btn" onclick="openTab(event, 'electric')">⚡ Инженерия и электрика</button>
+        </div>
+
+        <div class="content-grid">
+            
+            <!-- LEFT CONTENT (TABS) -->
+            <div class="main-content">
+                
+                <!-- TAB 1: ROOF -->
+                <div id="roof" class="tab-content active">
+                    <div class="advice-card">
+                        <div class="advice-header">
+                            <div class="advice-icon">🏠</div>
+                            <div class="advice-title">
+                                <span>Раздел 01</span>
+                                <h2>Правильный монтаж крыши</h2>
+                            </div>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <div class="tip-number">1</div>
+                                <div class="tip-text">Выберите подходящий тип кровельного покрытия (металлочерепица, гибкая черепица или профнастил) исходя из уклона ската.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">2</div>
+                                <div class="tip-text">Обязательно укладывайте качественную супердиффузионную мембрану для гидро- и ветрозащиты.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">3</div>
+                                <div class="tip-text">Обеспечьте качественный вентилируемый зазор под кровлей для эффективного отвода конденсата.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">4</div>
+                                <div class="tip-text">Не экономьте на пароизоляции со стороны отапливаемых помещений — проклеивайте все стыки бутил-каучуковой лентой.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">5</div>
+                                <div class="tip-text">Монтируйте снегозадержатели и водосточную систему для защиты фасада и безопасности зимой.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: FOUNDATION -->
+                <div id="foundation" class="tab-content">
+                    <div class="advice-card">
+                        <div class="advice-header">
+                            <div class="advice-icon">🏗️</div>
+                            <div class="advice-title">
+                                <span>Раздел 02</span>
+                                <h2>Надежный фундамент</h2>
+                            </div>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <div class="tip-number">1</div>
+                                <div class="tip-text">Перед закладкой обязательно проведите геологические изыскания грунта на участке.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">2</div>
+                                <div class="tip-text">Учитывайте глубину промерзания почвы в вашем регионе при выборе типа фундамента.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">3</div>
+                                <div class="tip-text">Используйте арматуру правильного диаметра (не менее 12 мм) и соблюдайте шаг вязки.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">4</div>
+                                <div class="tip-text">Заливайте бетон марки не ниже М300 за один прием для исключения «холодных швов».</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: WALLS -->
+                <div id="walls" class="tab-content">
+                    <div class="advice-card">
+                        <div class="advice-header">
+                            <div class="advice-icon">🧱</div>
+                            <div class="advice-title">
+                                <span>Раздел 03</span>
+                                <h2>Возведение стен</h2>
+                            </div>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <div class="tip-number">1</div>
+                                <div class="tip-text">Укладывайте первый ряд блоков или кирпича строго по уровню на гидроизоляционную отсечку.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">2</div>
+                                <div class="tip-text">Армируйте каждый 3-4 ряд кладки специальной сеткой или арматурой.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">3</div>
+                                <div class="tip-text">Обязательно заливайте железобетонный армопояс под перекрытия и стропильную систему.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: INSULATION -->
+                <div id="insulation" class="tab-content">
+                    <div class="advice-card">
+                        <div class="advice-header">
+                            <div class="advice-icon">❄️</div>
+                            <div class="advice-title">
+                                <span>Раздел 04</span>
+                                <h2>Утепление и отделка</h2>
+                            </div>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <div class="tip-number">1</div>
+                                <div class="tip-text">Утепляйте дом снаружи, а не изнутри, чтобы точка росы оставалась вне несущих стен.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">2</div>
+                                <div class="tip-text">Используйте фасадную базальтовую вату плотностью от 110–135 кг/м³ для штукатурных систем.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">3</div>
+                                <div class="tip-text">Укладывайте утеплитель внахлест (в разбежку швов), чтобы перекрыть мостики холода.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: ELECTRIC -->
+                <div id="electric" class="tab-content">
+                    <div class="advice-card">
+                        <div class="advice-header">
+                            <div class="advice-icon">⚡</div>
+                            <div class="advice-title">
+                                <span>Раздел 05</span>
+                                <h2>Инженерные сети</h2>
+                            </div>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <div class="tip-number">1</div>
+                                <div class="tip-text">Составляйте детальный план электрики до начала штукатурных работ.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">2</div>
+                                <div class="tip-text">Используйте негорючий медный кабель ГОСТ (ВВГнг-LS) нужного сечения.</div>
+                            </div>
+                            <div class="tip-item">
+                                <div class="tip-number">3</div>
+                                <div class="tip-text">Устанавливайте УЗО и дифференциальные автоматы на мокрые зоны (ванная, кухня).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDEBAR (CTA) -->
+            <div class="sidebar-card">
+                <h3>Нужна консультация?</h3>
+                <p>Задайте любой вопрос по строительству нашим инженерам или закажите бесплатный расчет сметы.</p>
+                <a href="/order" class="btn-cta">Рассчитать проект</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>

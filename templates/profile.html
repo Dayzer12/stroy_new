@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — СтройПомощь</title>
+    <style>
+        /* Общие стили */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0b1120;
+            background-image: radial-gradient(circle at top, #1e293b 0%, #0b1120 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* Шапка сайта (Header) */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        nav a.btn-logout {
+            color: #ef4444;
+        }
+
+        /* Основной контейнер */
+        .profile-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+        }
+
+        /* Карточки в стиле Glassmorphism */
+        .user-card, .dashboard-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-section {
+            margin-bottom: 24px;
+        }
+
+        /* Аватар и профиль */
+        .avatar-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 16px;
+        }
+
+        .avatar-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .status-indicator.online {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            background: #10b981;
+            border: 2px solid #1e293b;
+            border-radius: 50%;
+        }
+
+        .user-name {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .role-badge {
+            display: table;
+            margin: 0 auto 20px;
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .user-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 16px;
+        }
+
+        .detail-item {
+            margin-bottom: 12px;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-verified {
+            color: #34d399;
+        }
+
+        /* Блок прораба */
+        .manager-card {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .manager-title {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .manager-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .manager-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .manager-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .manager-phone {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .btn-manager-chat {
+            display: block;
+            text-align: center;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-manager-chat:hover {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        /* Заголовки */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #e2e8f0;
+        }
+
+        /* Кнопки действий */
+        .actions-grid {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary-action {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0f172a !important; /* ЧЕТКИЙ ТЕМНЫЙ ТЕКСТ */
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary-action {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.2s;
+        }
+
+        .btn-secondary-action:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Проекты и Прогресс */
+        .project-card, .info-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        .project-subtitle {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .badge-status.in-progress {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 4px;
+        }
+
+        /* Документы */
+        .docs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 12px;
+            border-radius: 10px;
+            gap: 12px;
+        }
+
+        .doc-icon {
+            background: #ef4444;
+            color: #fff;
+            font-weight: bold;
+            font-size: 10px;
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+
+        .doc-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .doc-size {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .doc-download-btn {
+            color: #f59e0b;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .doc-download-btn:hover {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигационная шапка (Без кнопки удаления) -->
+    <header>
+        <a href="/" class="logo"><span>СП</span> СтройПомощь</a>
+        <nav>
+            <a href="{{ url_for('main') if url_for else '/' }}">ГЛАВНАЯ</a>
+            <a href="{{ url_for('posts') if url_for else '#' }}">Отзывы</a>
+            <a href="{{ url_for('logout') if url_for else '#' }}" class="btn-logout">ВЫЙТИ</a>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-grid">
+            
+            <!-- Левая колонка: Профиль пользователя -->
+            <aside class="profile-sidebar">
+                <div class="user-card">
+                    <div class="avatar-container">
+                        <!-- Динамический аватар (первые буквы имени) -->
+                        <div class="avatar-circle">
+                            {% if session.get('user_name') %}
+                                {{ session.get('user_name')[:2].upper() }}
+                            {% elif user_name %}
+                                {{ user_name[:2].upper() }}
+                            {% else %}
+                                МР
+                            {% endif %}
+                        </div>
+                        <span class="status-indicator online"></span>
+                    </div>
+                    
+                    <!-- Отображение имени пользователя из сессии/Flask -->
+                    <h2 class="user-name">
+                        {% if session.get('user_name') %}
+                            {{ session.get('user_name') }}
+                        {% elif user_name %}
+                            {{ user_name }}
+                        {% else %}
+                            Махди Расукаев
+                        {% endif %}
+                    </h2>
+                    
+                    <span class="role-badge">Заказчик</span>
+
+                   <div class="detail-item">
+    <span class="detail-label">СТРАНА / РЕГИОН</span>
+    <span class="detail-value">Россия</span>
+</div>
+<div class="detail-item">
+    <span class="detail-label">ГОРОД</span>
+    <span class="detail-value">Не указан</span>
+</div>
+
+                    <!-- Персональный прораб -->
+                    <div class="manager-card">
+                        <div class="manager-title">Ваш персональный прораб</div>
+                        <div class="manager-info">
+                            <div class="manager-avatar">АВ</div>
+                            <div>
+                                <div class="manager-name">Александр Волков</div>
+                                <div class="manager-phone">+7 (999) 000-00-00</div>
+                            </div>
+                        </div>
+                        <a href="https://t.me/" target="_blank" class="btn-manager-chat">
+                            💬 Написать в Telegram
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Правая колонка: Заказы, Сметы и Действия -->
+            <main class="profile-content">
+                
+                <!-- Блок: Быстрые действия -->
+                <section class="dashboard-section">
+                    <h3 class="section-title">⚡ Быстрые действия</h3>
+                    <div class="actions-grid">
+                        <a href="{{ url_for('Uslugi') if url_for else '#' }}" class="btn-primary-action">
+                            + Рассчитать новый проект
+                        </a>
+                        <a href="{{ url_for('posts') if url_for else '#' }}" class="btn-secondary-action">
+                            💬 Мои записи на форуме
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Блок: Заявки и Прогресс -->
+                <section class="dashboard-section">
+                    <h3 class="section-title">📦 Мои заявки и проекты</h3>
+
+    
+    {% if user_projects %}
+        <!-- Если у пользователя есть реальные проекты -->
+        {% for project in user_projects %}
+            <div class="project-card" style="padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <h4 style="margin: 0 0 5px 0; color: #fff;">{{ project[1] }}</h4>
+                <p style="margin: 0; color: #d1d5db; font-size: 14px;">{{ project[2] }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- Заглушка для нового пользователя -->
+        <div style="padding: 25px; background: rgba(255,255,255,0.03); border-radius: 12px; text-align: center; color: #9ca3af; font-size: 14px;">
+            У вас пока нет активных заявок. Нажмите «Рассчитать новый проект», чтобы отправить запрос специалисту.
+        </div>
+    {% endif %}
+                
+
+                <!-- Блок: Информация к заказу -->
+                <section class="dashboard-section">
+                    <h3 class="section-title">📄 Информация к заказу</h3>
+                    <div class="info-card">
+                        <p>Интересует полный цикл строительства дома из газобетона под ключ с подведением коммуникаций.</p>
+                    </div>
+                </section>
+
+              <!-- Блок: Документы и сметы -->
+<!-- Блок: Документы и сметы -->
+<section class="dashboard-section">
+    <h3 class="section-title">📁 Документы и сметы</h3>
+    <div class="docs-grid">
+        {% set found_file = false %}
+        {% for project in user_projects %}
+            {% if project[4] %}
+                {% set found_file = true %}
+                <div class="doc-item">
+                    <div class="doc-icon">PDF</div>
+                    <div class="doc-details">
+                        <span class="doc-name">{{ project[4] }}</span>
+                        <span class="doc-size">Прикрепленный документ</span>
+                    </div>
+                    <a href="{{ url_for('static', filename='images/' + project[4]) }}" class="doc-download-btn" download>Скачать</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% if not found_file %}
+            <div style="color: #9ca3af; font-size: 14px; padding: 10px;">Документы пока не прикреплены администратором.</div>
+        {% endif %}
+    </div>
+</section>
+
+            </main>
+        </div>
+    </div>
+
+{% if session.get('status') == 'admin' %}
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-warning" style="background-color: #ff9800; color: #fff; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+        Панель администратора
+    </a>
+{% endif %}
+
+
+    <footer>
+        © 2026 СтройПомощь. Все права защищены.
+    </footer>
+
+</body>
+</html>
+   

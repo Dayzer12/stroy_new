@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СтройПомощь — Строительство и ремонт премиум-класса</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0B0F19;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-orange: #FF6B00;
+            --accent-orange-hover: #E05D00;
+            --text-white: #FFFFFF;
+            --text-gray: #94A3B8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Навигация */
+        .navbar {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            margin: 15px 20px 40px 20px;
+            padding: 15px 30px;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-white);
+            text-decoration: none;
+        }
+        .logo-accent, .text-orange {
+            color: var(--accent-orange);
+        }
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        /* Кнопки */
+        .btn-primary {
+            background: var(--accent-orange);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            background: var(--accent-orange-hover);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.45);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid var(--card-border);
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .btn-block { width: 100%; }
+
+        /* Hero Секция */
+        .hero-section { padding: 40px 0 80px 0; }
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .badge {
+            background: rgba(255, 107, 0, 0.15);
+            color: var(--accent-orange);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid var(--accent-orange);
+            display: inline-block;
+        }
+        .hero-title {
+            font-size: 48px;
+            margin: 20px 0;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+        .hero-subtitle {
+            color: var(--text-gray);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .hero-buttons { display: flex; gap: 15px; }
+        .hero-card { padding: 30px; }
+
+        .glass-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+        }
+        .glass-input option { background: #0B0F19; color: #fff; }
+
+        /* Сетки и Заголовки */
+        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .stats-grid, .features-grid, .services-grid, .portfolio-grid, .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .stat-card { padding: 30px; text-align: center; }
+        .stat-card h2 { font-size: 42px; color: var(--accent-orange); }
+
+        .feature-card, .service-card, .portfolio-card, .step-card {
+            padding: 30px;
+            transition: 0.3s;
+        }
+        .feature-card:hover, .service-card:hover, .portfolio-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-orange);
+        }
+
+        /* Портфолио */
+        .portfolio-img {
+            width: 100%;
+            height: 180px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+        }
+
+        /* Этапы работы */
+        .step-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+        }
+
+        /* Калькулятор */
+        .calc-box { padding: 40px; margin: 60px 0; }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        /* Футер */
+        .footer { margin-top: 100px; padding: 40px 0; }
+        .footer-container { display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <header class="navbar glass-card">
+        <div class="container nav-container">
+            <a href="{{ url_for('main') }}" class="logo"><span class="logo-accent">Строй</span>Помощь</a>
+            <nav class="nav-links">
+                <a href="{{ url_for('main') }}" class="active">Главная</a>
+                <a href="{{ url_for('Uslugi') }}">Услуги</a>
+                <a href="{{ url_for('sovet') }}">Советы</a>
+                <a href="{{ url_for('posts') }}">Отзывы</a>
+                <a href="{{ url_for('o_nas') }}">О нас</a>
+                <a href="{{ url_for('Contacts') }}">Контакты</a>
+                <a href="{{ url_for('portfolio') }}">Наши работы</a>
+                
+            </nav>
+            <div class="nav-auth">
+    {% if session.get('user_name') or user_name %}
+    <a href="{{ url_for('profile') }}" class="btn-primary">
+    <i class="fa-solid fa-user"></i> {{ session.get('user_name') or user_name }}
+</a>
+    <a href="{{ url_for('logout') }}" class="btn-secondary" style="margin-left: 10px;">Выход</a>
+{% else %}
+    <!-- Кнопка Войти -->
+    <a href="{{ url_for('login') }}" class="btn-primary">Войти</a>
+    <!-- Кнопка Регистрация -->
+    <a href="{{ url_for('register') }}" class="btn-secondary" style="margin-left: 10px;">Регистрация</a>
+{% endif %}
+</div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="badge"><i class="fa-solid fa-shield-halved"></i> Официальный договор и гарантия</span>
+                <h1 class="hero-title">Строительство и ремонт премиум-класса <span class="text-orange">под ключ</span></h1>
+                <p class="hero-subtitle">Разрабатываем проекты, возводим дома и делаем капитальную отделку с контролем качества 24/7.</p>
+                <div class="hero-buttons">
+                    <a href="#calculator" class="btn-primary">Рассчитать стоимость</a>
+                    <a href="{{ url_for('Uslugi') }}" class="btn-secondary">Наши услуги</a>
+                </div>
+            </div>
+            <div class="hero-card glass-card">
+                <h3>Заявка на бесплатный замер</h3>
+                <form action="{{ url_for('order') }}" method="POST">
+                    <input type="text" name="name" placeholder="Ваше имя" required class="glass-input">
+                    <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required class="glass-input">
+                    <select name="service" class="glass-input">
+                        <option value="remont">Ремонт квартиры</option>
+                        <option value="dom">Строительство коттеджа</option>
+                        <option value="design">Дизайн-проект</option>
+                    </select>
+                    <button type="submit" class="btn-primary btn-block">Заказать выезд инженера</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок доверия -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-card glass-card"><h2>12 лет</h2><p>Успешной работы</p></div>
+            <div class="stat-card glass-card"><h2>450+</h2><p>Завершенных объектов</p></div>
+            <div class="stat-card glass-card"><h2>5 лет</h2><p>Гарантии на работы</p></div>
+            <div class="stat-card glass-card"><h2>0 ₽</h2><p>Предоплаты за работу</p></div>
+        </div>
+    </section>
+
+    <!-- Выполненные проекты -->
+<section class="container" style="margin: 80px auto;">
+    <div class="section-header">
+        <h2 class="section-title">Примеры наших <span class="text-orange">проектов</span></h2>
+    </div>
+    
+    <div class="services-grid" style="margin-top: 30px;">
+        <!-- Проект 1 -->
+        <div class="service-card glass-card" style="padding: 0; overflow: hidden;">
+            <div style="height: 200px; overflow: hidden; position: relative;">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                     alt="Коттедж 220 м²" 
+                     style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--accent-orange); border: 1px solid rgba(255,107,0,0.4);">
+                    Срок: 6 месяцев
+                </div>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="margin-bottom: 8px;">Коттедж 220 м²</h3>
+                <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 15px;">
+                    Строительство из газобетона под ключ с отделкой фасада и проведением коммуникаций.
+                </p>
+                <a href="{{ url_for('Uslugi') }}" class="btn-secondary btn-sm btn-block">Смотреть проект</a>
+            </div>
+        </div>
+
+        <!-- Проект 2 -->
+        <div class="service-card glass-card" style="padding: 0; overflow: hidden;">
+            <div style="height: 200px; overflow: hidden; position: relative;">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" 
+                     alt="ЖК Премиум 85 м²" 
+                     style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--accent-orange); border: 1px solid rgba(255,107,0,0.4);">
+                    Срок: 75 дней
+                </div>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="margin-bottom: 8px;">ЖК Премиум 85 м²</h3>
+                <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 15px;">
+                    Дизайнерский ремонт с шумоизоляцией и умным освещением.
+                </p>
+                <a href="{{ url_for('Uslugi') }}" class="btn-secondary btn-sm btn-block">Смотреть проект</a>
+            </div>
+        </div>
+
+        <!-- Проект 3 -->
+        <div class="service-card glass-card" style="padding: 0; overflow: hidden;">
+            <div style="height: 200px; overflow: hidden; position: relative;">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
+                     alt="Офис компании 300 м²" 
+                     style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--accent-orange); border: 1px solid rgba(255,107,0,0.4);">
+                    Срок: 45 дней
+                </div>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="margin-bottom: 8px;">Офис компании 300 м²</h3>
+                <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 15px;">
+                    Отделка и проведение инженерных сетей под ключ.
+                </p>
+                <a href="{{ url_for('Uslugi') }}" class="btn-secondary btn-sm btn-block">Смотреть проект</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Этапы работы -->
+    <section class="container">
+        <h2 class="section-title">Как мы <span class="text-orange">работаем</span></h2>
+        <div class="steps-grid">
+            <div class="step-card glass-card">
+                <div class="step-number">01</div>
+                <h3>Заявка и замер</h3>
+                <p style="color: var(--text-gray);">Бесплатный выезд инженера и составление точной сметы.</p>
+            </div>
+            <div class="step-card glass-card">
+                <div class="step-number">02</div>
+                <h3>Договор</h3>
+                <p style="color: var(--text-gray);">Фиксируем финальную стоимость и сроки реализации.</p>
+            </div>
+            <div class="step-card glass-card">
+                <div class="step-number">03</div>
+                <h3>Ремонт / Стройка</h3>
+                <p style="color: var(--text-gray);">Выполнение работ с фотоотчетами в личный кабинет.</p>
+            </div>
+            <div class="step-card glass-card">
+                <div class="step-number">04</div>
+                <h3>Сдача объекта</h3>
+                <p style="color: var(--text-gray);">Подписание акта приема-передачи и выдача гарантии.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Интерактивный Калькулятор -->
+    <section id="calculator" class="container">
+        <div class="calc-box glass-card">
+            <h2 class="section-title">Онлайн-расчет стоимости</h2>
+            <form action="{{ url_for('order') }}" method="POST">
+                <div class="calc-grid">
+                    <div>
+                        <label style="color: var(--text-gray); font-size: 14px;">Тип объекта:</label>
+                        <select id="calc-type" name="calc_type" class="glass-input">
+                            <option value="2500">Косметический (2 500 ₽/м²)</option>
+                            <option value="5000">Капитальный (5 000 ₽/м²)</option>
+                            <option value="9000">Премиум / Дизайн (9 000 ₽/м²)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="color: var(--text-gray); font-size: 14px;">Площадь (м²):</label>
+                        <input type="number" id="calc-area" name="calc_area" value="60" min="10" max="500" class="glass-input">
+                    </div>
+                    <div>
+                        <span style="color: var(--text-gray); font-size: 14px;">Примерная стоимость:</span>
+                        <h2 id="total-price" class="text-orange">300 000 ₽</h2>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Зафиксировать цену и получить скидку 5%</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer glass-card">
+        <div class="container footer-container">
+            <div>
+                <a href="#" class="logo"><span class="logo-accent">Строй</span>Помощь</a>
+                <p style="color: var(--text-gray); font-size: 14px; margin-top: 10px;">Профессиональные строительные услуги.</p>
+            </div>
+            <div style="color: var(--text-gray); font-size: 14px;">
+                &copy; 2026 СтройПомощь. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const calcType = document.getElementById('calc-type');
+        const calcArea = document.getElementById('calc-area');
+        const totalPrice = document.getElementById('total-price');
+
+        function calculate() {
+            let pricePerMeter = parseInt(calcType.value);
+            let area = parseInt(calcArea.value) || 0;
+            let total = pricePerMeter * area;
+            totalPrice.innerText = total.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        calcType.addEventListener('change', calculate);
+        calcArea.addEventListener('input', calculate);
+        calculate();
+    </script>
+</body>
+</html>

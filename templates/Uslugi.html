@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши Услуги | СтройПомощь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0b0f19;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 58, 138, 0.25) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.8) 0px, transparent 100%);
+            color: #f8fafc;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        /* Чертежная сетка на фоне */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotate(-5deg);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ----- ШАПКА / NAVIGATION ----- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
+        }
+
+        .logo-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #f97316;
+        }
+
+        .nav-auth-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #ffffff !important;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-auth-btn:hover {
+            background: #f97316;
+            border-color: #f97316;
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        /* ----- ОСНОВНОЙ КОНТЕНТ ----- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-title-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 20px;
+            color: #f97316;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-title-section h1 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-title-section p {
+            color: #94a3b8;
+            font-size: 16px;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* СЕТКА УСЛУГ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: rgba(18, 24, 38, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(249, 115, 22, 0.4);
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(249, 115, 22, 0.15);
+        }
+
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .price-badge {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .price-label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .price-value {
+            font-size: 22px;
+            font-weight: 800;
+            color: #f97316;
+        }
+
+        .btn-order {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px -4px rgba(249, 115, 22, 0.4);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -4px rgba(249, 115, 22, 0.6);
+            color: #000000;
+        }
+
+        /* ----- ФУТЕР ----- */
+        .footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #64748b;
+            font-size: 14px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .footer a:hover {
+            color: #f97316;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигационная шапка -->
+    <header class="header">
+        <a href="{{ url_for('main') if 'main' in endpoints else '/' }}" class="logo-box">
+            <div class="logo-icon">🏗️</div>
+            <span class="logo-title">СтройПомощь</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main') if 'main' in endpoints else '/' }}">Главная</a></li>
+            <li><a href="{{ url_for('uslugi') if 'uslugi' in endpoints else '/Uslugi' }}" class="active">Услуги</a></li>
+            <li><a href="{{ url_for('Contacts') if 'contacts' in endpoints else '/Contacts' }}">Контакты</a></li>
+            <li><a href="{{ url_for('Sovet') if 'sovet' in endpoints else '/sovet' }}">Советы по строительству</a></li>
+            <li><a href="{{ url_for('o_nas') if 'o_nas' in endpoints else '/o_nas' }}">О нас</a></li>
+            <li><a href="{{ url_for('login') if 'login' in endpoints else '/login' }}" class="nav-auth-btn">Войти</a></li>
+        </ul>
+    </header>
+
+    <!-- Основной блок услуг -->
+    <main class="container">
+        
+        <div class="page-title-section">
+            <span class="badge-tag">Экспертный подход</span>
+            <h1>Строительные услуги под ключ</h1>
+            <p>Профессиональная инженерия, расчет смет и технический надзор для ваших объектов</p>
+        </div>
+
+        <div class="services-grid">
+
+            <!-- Услуга 1 -->
+            <div class="service-card">
+                <div>
+                    <div class="card-icon">📐</div>
+                    <h2 class="card-title">Проектирование чертежей</h2>
+                    <p class="card-description">
+                        Создание детальных архитектурных планов зданий, включая поэтажные экспликации, разрезы, фасады и конструктивные узлы.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-badge">
+                        <span class="price-label">цена:</span>
+                        <span class="price-value">от 10 000 ₽</span>
+                    </div>
+                    <a href="{{ url_for('order') if 'order' in endpoints else '/order' }}" class="btn-order">Заказать услугу</a>
+                </div>
+            </div>
+
+            <!-- Услуга 2 -->
+            <div class="service-card">
+                <div>
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">Технический надзор</h2>
+                    <p class="card-description">
+                        Контроль качества строительных работ на каждом этапе, проверка материалов и соответствие ГОСТам и СНиПам.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-badge">
+                        <span class="price-label">цена:</span>
+                        <span class="price-value">от 3 000 ₽</span>
+                    </div>
+                    <a href="{{ url_for('order') if 'order' in endpoints else '/order' }}" class="btn-order">Заказать услугу</a>
+                </div>
+            </div>
+
+            <!-- Услуга 3 -->
+            <div class="service-card">
+                <div>
+                    <div class="card-icon">🧱</div>
+                    <h2 class="card-title">Консультация по материалам</h2>
+                    <p class="card-description">
+                        Подбор кирпича, бетона, утеплителя и кровельных систем под ваш бюджет с расчетом теплоэффективности.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-badge">
+                        <span class="price-label">цена:</span>
+                        <span class="price-value">от 1 500 ₽</span>
+                    </div>
+                    <a href="{{ url_for('order') if 'order' in endpoints else '/order' }}" class="btn-order">Заказать услугу</a>
+                </div>
+            </div>
+
+            <!-- Услуга 4 -->
+            <div class="service-card">
+                <div>
+                    <div class="card-icon">📊</div>
+                    <h2 class="card-title">Составление сметы</h2>
+                    <p class="card-description">
+                        Точный расчет объема необходимых строительных материалов, оборудования и стоимости предстоящих работ без скрытых расходов.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-badge">
+                        <span class="price-label">цена:</span>
+                        <span class="price-value">от 5 000 ₽</span>
+                    </div>
+                    <a href="{{ url_for('order') if 'order' in endpoints else '/order' }}" class="btn-order">Заказать услугу</a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <p>© 2026 СтройПомощь. Все права защищены.</a></p>
+    </footer>
+
+</body>
+</html>

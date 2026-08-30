@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — СтройПомощь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 107, 0, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ff6b00;
+        }
+
+        /* MAIN SECTION */
+        .container {
+            max-width: 1240px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 30px;
+            color: #ff6b00;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            color: #9ca3af;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* GRID LAYOUT */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 36px;
+            margin-bottom: 50px;
+        }
+
+        /* LEFT COLUMN: INFO CARDS */
+        .info-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: rgba(19, 26, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px 28px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-card:hover {
+            border-color: rgba(255, 107, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.25);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            color: #ff6b00;
+        }
+
+        .info-content h3 {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-content p, .info-content a {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            line-height: 1.4;
+        }
+
+        .info-content a:hover {
+            color: #ff6b00;
+        }
+
+        .info-content span {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* MESSENGER BUTTONS */
+        .messengers-card {
+            background: rgba(19, 26, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px 28px;
+            backdrop-filter: blur(12px);
+        }
+
+        .messengers-title {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-tg {
+            background: rgba(42, 171, 238, 0.12);
+            border: 1px solid rgba(42, 171, 238, 0.3);
+            color: #2aabee;
+        }
+
+        .btn-tg:hover {
+            background: #2aabee;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(42, 171, 238, 0.3);
+        }
+
+        .btn-wa {
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: #25d366;
+        }
+
+        .btn-wa:hover {
+            background: #25d366;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* RIGHT COLUMN: CONTACT FORM */
+        .form-card {
+            background: rgba(19, 26, 43, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 36px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .form-card h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .form-card p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(11, 15, 25, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #ff6b00;
+            box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.15);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 0, 0.5);
+        }
+
+        /* MAP SECTION */
+        .map-section {
+            background: rgba(19, 26, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 380px;
+            border: none;
+            border-radius: 16px;
+            filter: invert(90%) hue-rotate(180deg) contrast(1.2);
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px 5%;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            background: rgba(11, 15, 25, 0.9);
+        }
+
+        @media (max-width: 900px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-title {
+                font-size: 32px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="{{ url_for('main') }}" class="logo-box">
+            <div class="logo-icon">СП</div>
+            <span class="logo-title">СтройПомощь</span>
+        </a>
+        <nav class="nav-links">
+            <a href="{{ url_for('main') }}" class="nav-link">Главная</a>
+            <a href="{{ url_for('Uslugi') }}" class="nav-link">Услуги</a>
+            <a href="#" class="nav-link active">Контакты</a>
+            <a href="{{ url_for('sovet') }}" class="nav-link">Советы</a>
+            <a href="{{ url_for('o_nas') }}" class="nav-link">О нас</a>
+        </nav>
+    </header>
+    <!-- CONTAINER -->
+    <div class="container">
+        
+        <div class="page-header">
+            <span class="page-badge">Свяжитесь с нами</span>
+            <h1 class="page-title">Наши Контакты</h1>
+            <p class="page-subtitle">Есть вопросы по строительству или расчету сметы? Задайте их напрямую нашим инженерам или приезжайте в офис.</p>
+        </div>
+
+        <div class="contacts-grid">
+            
+            <!-- LEFT COLUMN -->
+            <div class="info-wrapper">
+                
+                <div class="info-card">
+                    <div class="icon-box">📍</div>
+                    <div class="info-content">
+                        <h3>Главный офис</h3>
+                        <p>г. Москва, ул. Новая, д. 1</p>
+                        <span>Пн-Сб: с 09:00 до 20:00</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-box">📞</div>
+                    <div class="info-content">
+                        <h3>Телефон</h3>
+                        <a href="tel:+79990000000">+7 (999) 000-00-00</a>
+                        <span>Бесплатный звонок по РФ</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-box">✉️</div>
+                    <div class="info-content">
+                        <h3>Электронная почта</h3>
+                        <a href="mailto:info@stroy-pomosh.ru">info@stroy-pomosh.ru</a>
+                        <span>Отвечаем в течение 15 минут</span>
+                    </div>
+                </div>
+
+                <!-- MESSENGERS -->
+                <div class="messengers-card">
+                    <div class="messengers-title">Быстрая связь в мессенджерах</div>
+                    <div class="social-buttons">
+                        <a href="https://t.me/" target="_blank" class="btn-social btn-tg">
+                            Telegram
+                        </a>
+                        <a href="https://wa.me/" target="_blank" class="btn-social btn-wa">
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: FORM -->
+            <div class="form-card">
+                <h2>Написать нам</h2>
+                <p>Оставьте сообщение, и наш специалист свяжется с вами.</p>
+
+               <form action="/Contacts/" method="POST">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Иван Иванов" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Ваш Email или Телефон</label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="example@mail.ru или +7..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" class="form-control" placeholder="Опишите ваш вопрос или задачу..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Отправить сообщение</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- MAP -->
+        <div class="map-section">
+            <iframe 
+                class="map-iframe"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.58434676104!2d37.6173!3d55.7558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQ1JzIwLjkiTiAzN8KwMzcnMDIuMyJF!5e0!3m2!1sru!2sru!4v1620000000000!5m2!1sru!2sru" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 СтройПомощь. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

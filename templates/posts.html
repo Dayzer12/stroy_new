@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форум и Отзывы — СтройПомощь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 0, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ff6b00;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 30px;
+            color: #ff6b00;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #9ca3af;
+            font-size: 15px;
+        }
+
+        /* FORM CARD */
+        .form-card {
+            background: rgba(19, 26, 43, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: #ff6b00;
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.5);
+        }
+
+        /* POSTS LIST */
+        .section-heading {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .post-card {
+            background: rgba(19, 26, 43, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .post-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 107, 0, 0.15);
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b00;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #f3f4f6;
+            font-size: 15px;
+        }
+
+        .post-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .post-content {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px 5%;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            background: rgba(11, 15, 25, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="{{ url_for('main') }}" class="logo-box">
+            <div class="logo-icon">СП</div>
+            <span class="logo-title">СтройПомощь</span>
+        </a>
+        <nav class="nav-links">
+            <a href="{{ url_for('main') }}" class="nav-link">Главная</a>
+            <a href="{{ url_for('Uslugi') }}" class="nav-link">Услуги</a>
+            <a href="{{ url_for('Contacts') }}" class="nav-link">Контакты</a>
+            <a href="{{ url_for('sovet') }}" class="nav-link">Советы</a>
+            <a href="{{ url_for('o_nas') }}" class="nav-link">О нас</a>
+            <a href="{{ url_for('posts') }}" class="nav-link">Отзывы</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <div class="page-header">
+            <span class="page-badge">Сообщетельство & Вопросы</span>
+            <h1 class="page-title">Форум и отзывы клиентов</h1>
+            <p class="page-subtitle">Задавайте вопросы строителям, делитесь опытом и оставляйте отзывы</p>
+        </div>
+
+       <!-- FORM -->
+    <div class="form-card">
+        <h2 class="form-title">💬 Оставить отзыв или задать вопрос</h2>
+        <p style="color: #9ca3af; font-size: 14px; margin-bottom: 20px;">
+            Вы публикуете как: 
+            <strong style="color: #ff6b00;">
+                {% if session.get('user_name') %}
+                    {{ session.get('user_name') }}
+                {% else %}
+                    Аноним
+                {% endif %}
+            </strong>
+        </p>
+
+        <form action="{{ url_for('posts') }}" method="POST">
+            <div class="form-group">
+                <label class="form-label">Тема сообщения / Заголовок</label>
+                <input type="text" name="title" class="form-input" placeholder="Например: Какую гидроизоляцию выбрать?" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Текст сообщения</label>
+                <textarea name="content" class="form-textarea" placeholder="Опишите подробнее ваш вопрос или поделитесь опытом..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Опубликовать запись</button>
+        </form>
+    </div>
+
+    <!-- POSTS LIST -->
+    <h2 class="section-heading">Последние публикации</h2>
+    <div class="posts-list">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="post-author">
+                        <div class="avatar">{{ post[3][0] | upper if post[3] else 'А' }}</div>
+                        <span class="author-name">{{ post[3] if post[3] else 'Аноним' }}</span>
+                    </div>
+                    
+                    <form action="{{ url_for('delete_post', post_id=post[0]) }}" method="POST" onsubmit="return confirm('Удалить этот пост?');">
+                        <button type="submit" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 4px 10px; border-radius: 6px; cursor: pointer;">
+                            Удалить
+                        </button>
+                    </form>
+                </div>
+                <h3 class="post-title">{{ post[1] }}</h3>
+                <p class="post-content">{{ post[2] }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="post-card">
+                <p class="post-content">Постов пока нет. Будьте первым, кто оставит отзыв!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 СтройПомощь. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

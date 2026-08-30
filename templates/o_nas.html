@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании — СтройПомощь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 0, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ff6b00;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1240px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 30px;
+            color: #ff6b00;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            color: #9ca3af;
+            font-size: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: rgba(19, 26, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px 20px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 107, 0, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: 800;
+            color: #ff6b00;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 600;
+        }
+
+        /* FEATURES SECTION */
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: rgba(19, 26, 43, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 107, 0, 0.12);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .feature-info p {
+            font-size: 14px;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* BANNER CTA */
+        .banner-card {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15) 0%, rgba(19, 26, 43, 0.8) 100%);
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner-card h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .banner-card p {
+            color: #d1d5db;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 36px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 0, 0.5);
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px 5%;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            background: rgba(11, 15, 25, 0.9);
+        }
+
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="{{ url_for('main') }}" class="logo-box">
+            <div class="logo-icon">СП</div>
+            <span class="logo-title">СтройПомощь</span>
+        </a>
+        <nav class="nav-links">
+            <a href="{{ url_for('main') }}" class="nav-link">Главная</a>
+            <a href="{{ url_for('Uslugi') }}" class="nav-link">Услуги</a>
+            <a href="{{ url_for('Contacts') }}" class="nav-link">Контакты</a>
+            <a href="{{ url_for('sovet') }}" class="nav-link">Советы</a>
+            <a href="#" class="nav-link active">О нас</a>
+        </nav>
+    </header>
+
+    <!-- CONTAINER -->
+    <div class="container">
+        
+        <div class="page-header">
+            <span class="page-badge">О компании</span>
+            <h1 class="page-title">Строим будущее с гарантией качества</h1>
+            <p class="page-subtitle">Компания «СтройПомощь» помогает воплощать мечты об идеальном жилье в реальность. Мы берем на себя весь цикл работ: от проектирования и фундамента до финишной отделки.</p>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Лет на рынке</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">250+</div>
+                <div class="stat-label">Готовых объектов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5 лет</div>
+                <div class="stat-label">Гарантии по договору</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Соблюдение сроков</div>
+            </div>
+        </div>
+
+        <!-- FEATURES -->
+        <h2 class="section-title">Почему нам доверяют</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <div class="feature-info">
+                    <h3>Работа строго по договору</h3>
+                    <p>Фиксируем смету и сроки сдачи до начала работ. Никаких скрытых платежей и неожиданных доплат в процессе строительства.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-info">
+                    <h3>Технический надзор</h3>
+                    <p>Каждый этап контролируется независимым инженером технадзора. Проводим фото- и видеоотчеты для клиента на каждом этапе.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👷‍♂️</div>
+                <div class="feature-info">
+                    <h3>Опытные бригады</h3>
+                    <p>В нашей команде работают только сертифицированные мастера с профильным образованием и опытом от 7 лет.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🧱</div>
+                <div class="feature-info">
+                    <h3>Качественные материалы</h3>
+                    <p>Закупаем строительные материалы напрямую у производителей со скидкой до 15% и предоставляем сертификаты качества.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BANNER -->
+        <div class="banner-card">
+            <h2>Готовы начать строительство вашего дома?</h2>
+            <p>Оставьте заявку на бесплатную консультацию и расчет подробной сметы уже сегодня.</p>
+            <a href="/order" class="btn-cta">Получить расчет сметы</a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 СтройПомощь. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>
